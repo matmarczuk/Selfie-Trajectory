@@ -1,5 +1,5 @@
 x1 = linspace(0,10,5);
-y1 = [4.9 5.05 5.15 5.05 5];
+y1 = [4.9 5.05 5.15 5.05 5]; %przebieg testowy punktow
 y2 = y1-2;
 
 xc = linspace(0,10);
@@ -16,7 +16,7 @@ while (1)
     y2_= y1_-2;
     p1 = polyfit(x1,y1_,4);
     p2 = polyfit(x1,y2_,4);
-    %wyznaczenie punktów przeciecia
+    %wyznaczenie punktï¿½w przeciecia
     for i=1:4
         punktx1 = [x1(i),x1(i+1)];
         punkty1 = [y1_(i),y2_(i+1)];
@@ -35,7 +35,7 @@ while (1)
     yc1 = polyval(p1,xc);
     yc2 = polyval(p2,xc);
     
-    %wyœwietlanie wykresów i trajektorii
+    %wyï¿½wietlanie wykresï¿½w i trajektorii
     plot(x1,y1_,'o')
     hold on
     plot(x1,y2_,'x')
@@ -55,6 +55,6 @@ while (1)
         break;
     end
 end
-%zamkniêcie okna
+%zamkniï¿½cie okna
 
 disp('koniec programu')
