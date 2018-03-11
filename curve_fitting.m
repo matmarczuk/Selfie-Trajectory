@@ -26,7 +26,6 @@ while (1)
         c2 = polyfit(punktx2,punkty2,1);
         
         przeciecie(i) = (c2(2)-c1(2))/(c1(1)-c2(1));
-        
         punkt_przeciecia(i) = polyval(c1,przeciecie(i));
     end
     
@@ -36,8 +35,7 @@ while (1)
     yc1 = polyval(p1,xc);
     yc2 = polyval(p2,xc);
     
-    %wyœwietlanie wykresów
-    
+    %wyœwietlanie wykresów i trajektorii
     plot(x1,y1_,'o')
     hold on
     plot(x1,y2_,'x')
