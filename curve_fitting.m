@@ -1,52 +1,51 @@
-x1 = linspace(0,10,5);
-y1 = [4.9 5.05 5.15 5.05 5]; %przebieg testowy punktow
-y2 = y1-2;
+left_x = linspace(0,10,5);
+left_y = [4.9 5.05 5.15 5.05 5]; %przebieg testowy punktow
+right_y = left_y-2;
 
-xc = linspace(0,10);
-y1_= y1;
-y2_ = y2;
+x_axis = linspace(0,10);
+sim_left_y= left_y;
+sim_right_y = right_y;
 figure
 while (1)
-    przeniesienie = y1_(5);
+    overflow = sim_left_y(5);
     for i=5:-1:2
-        y1_(i)=y1_(i-1);
+        sim_left_y(i)=sim_left_y(i-1);
     end
-    y1_(1)=przeniesienie;
+    sim_left_y(1)=overflow;
     
-    y2_= y1_-2;
-    p1 = polyfit(x1,y1_,4);
-    p2 = polyfit(x1,y2_,4);
+    sim_right_y= sim_left_y-2;
+    poly_left = polyfit(left_x,sim_left_y,4);
+    poly_right = polyfit(left_x,sim_right_y,4);
     %wyznaczenie punkt�w przeciecia
     for i=1:4
-        punktx1 = [x1(i),x1(i+1)];
-        punkty1 = [y1_(i),y2_(i+1)];
-        punktx2 = [x1(i),x1(i+1)];
-        punkty2 = [y2_(i),y1_(i+1)];
-        c1 = polyfit(punktx1,punkty1,1);
-        c2 = polyfit(punktx2,punkty2,1);
+        cross_point_x= [left_x(i),left_x(i+1)];
+        cross_point_y1 = [sim_left_y(i),sim_right_y(i+1)];
+        cross_point_y2 = [sim_right_y(i),sim_left_y(i+1)];
+        linear1 = polyfit(cross_point_x,cross_point_y1,1);
+        linear2 = polyfit(cross_point_x,cross_point_y2,1);
         
-        przeciecie(i) = (c2(2)-c1(2))/(c1(1)-c2(1));
-        punkt_przeciecia(i) = polyval(c1,przeciecie(i));
+        intersec_x(i) = (linear2(2)-linear1(2))/(linear1(1)-linear2(1));
+        intersec_y(i) = polyval(linear1,intersec_x(i));
     end
     
-    trajectory = polyfit(przeciecie,punkt_przeciecia,3);
-    trajectory = polyval(trajectory,xc);
+    trajectory = polyfit(intersec_x,intersec_y,3);
+    trajectory = polyval(trajectory,x_axis);
     
-    yc1 = polyval(p1,xc);
-    yc2 = polyval(p2,xc);
+    poly_left = polyval(poly_left,x_axis);
+    poly_right = polyval(poly_right,x_axis);
     
     %wy�wietlanie wykres�w i trajektorii
-    plot(x1,y1_,'o')
+    plot(left_x,sim_left_y,'o')
     hold on
-    plot(x1,y2_,'x')
+    plot(left_x,sim_right_y,'x')
     hold on
-    plot(xc,yc2)
+    plot(x_axis,poly_right)
     hold on
-    plot(xc,trajectory)
+    plot(x_axis,trajectory)
     hold on
-    plot(xc,yc1)
+    plot(x_axis,poly_left)
     hold on
-    plot(przeciecie,punkt_przeciecia,'P');
+    plot(intersec_x,intersec_y,'P');
     hold off
     
     w = waitforbuttonpress;
