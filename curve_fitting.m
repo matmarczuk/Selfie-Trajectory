@@ -1,5 +1,6 @@
+
 left_x = linspace(0,10,5);
-left_y = [4.9 5.05 5.15 5.05 5]; %przebieg testowy punktow
+left_y = [4.80 5.05 5.30 4.90 4.60]; %przebieg testowy punktow
 right_y = left_y-2;
 
 x_axis = linspace(0,10);
@@ -47,12 +48,12 @@ while (1)
     hold on
     plot(intersec_x,intersec_y,'P');
     hold off
-    
-    w = waitforbuttonpress;
-    if w == 1
-        close all;
-        break;
-    end
+    pause(0.2);
+    %w = waitforbuttonpress;
+    %if w == 1
+     %   close all;
+    %    break;
+   % end
 end
 %zamkni�cie okna
 
